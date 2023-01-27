@@ -1,12 +1,12 @@
+import Header from "./components/Header";
 
 
 function App() {
   return (
-    <div className="App">
-      Start
+    <div className="app">
+      <Header />
     </div>
   );
 }
 
 export default App;
-// added folder "resources" , continued fill a foto
