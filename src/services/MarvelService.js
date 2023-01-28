@@ -1,8 +1,6 @@
 class MarvelService {
 
-    _apiBase = 'https://gateway.marvel.com:443/v1/public/';
-
-    _apiKey = 'apikey=bcc37ca9abf64a8678cb4259618761b0';
+    _apiBase = 'https://jsonplaceholder.typicode.com/';
 
     getResource = async (url) => {
 
@@ -18,18 +16,26 @@ class MarvelService {
 
     }
 
-    getAllCharacters = () => {
-
-        return this.getResource(`${this._apiBase}characters?limit=9&offset=201&${this._apiKey}`);
-
+    _transformCharacter = (char) => {
+        return {
+            name: char.id,
+            descriotion: char.title,
+            thumbnail: char.thumbnailUrl,
+            url: char.url,
+        }
     }
 
-    getCharacter = (id) => {
+    getAllPhoto = async () => {
+        const itemsObj = await this.getResource(`${this._apiBase}photos`);
+        return itemsObj.map(this._transformCharacter)
+    }
 
-        return this.getResource(`${this._apiBase}characters/${id}?${this._apiKey}`);
-
+    getPhoto = async (id) => {
+        const itemObj = await this.getResource(`${this._apiBase}photos/${id}`);
+        return this._transformCharacter(itemObj);
     }
 
 }
 
 export default MarvelService;
+
